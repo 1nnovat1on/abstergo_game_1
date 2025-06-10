@@ -250,7 +250,14 @@
         }
 
         // --- Event Listeners ---
-        window.addEventListener('keydown', (e) => { keys[e.key] = true; });
+        window.addEventListener('keydown', (e) => {
+            // Check if the pressed key is one of the arrow keys
+            if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+                // Prevent the default action (scrolling the page)
+                e.preventDefault();
+            }
+            keys[e.key] = true; 
+        });
         window.addEventListener('keyup', (e) => { keys[e.key] = false; });
         restartBtn.addEventListener('click', resetGame);
         window.addEventListener('wheel', (e) => { e.preventDefault(); const z = 1.1; if (e.deltaY < 0) { camera.zoom *= z; } else { camera.zoom /= z; } camera.zoom = Math.max(0.2, Math.min(camera.zoom, 5)); }, { passive: false });
